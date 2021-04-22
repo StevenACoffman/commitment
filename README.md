@@ -9,10 +9,11 @@ go get -u github.com/StevenACoffman/commitment/cmd/cm
 
 ### Usage
 
-Commitment (or `cm`) will passthrough any and all the flags you give it to `git commit`, but then will
-interactively help you generate a nicely formatted git commit message.
+Commitment (or `git-cm`) will passthrough any and all the flags you give it to `git commit`, but then will
+interactively help you generate a nicely formatted git commit message. If the binary is in your path, then `git` will add
+a shortcut to `cm` for it
 
-So for instance, if you type `cm -s -S -a` you will be prompted to optionally pick an emoji, a jira issue, one-line
+So for instance, if you type `git cm -s -S -a` you will be prompted to optionally pick an emoji, a jira issue, one-line
 summary, a multiline summary, and a multiline Test Plan.
 
 ```
@@ -21,10 +22,10 @@ summary, a multiline summary, and a multiline Test Plan.
 
 🤔  Enter your one-line summary:
 Add new emoji stuff
-✍️  Enter/Paste your multiline summary. On any empty line, Ctrl-] and Enter to save it:
+✍️  Enter/Paste your multiline summary. On any empty line, Ctrl-D to save it:
 I think it will be great
 ^]
-⚗️  Enter/Paste your multiline Test Plan description. On any empty line, Ctrl-] and Enter to save it:
+⚗️  Enter/Paste your multiline Test Plan description. On any empty line, Ctrl-D to save it:
 Run it and see!
 ^]
 

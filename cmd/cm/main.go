@@ -26,32 +26,31 @@ func main() {
 	gitCommitEmoji := pkg.Gitmojis[i].Emoji
 	if gitCommitEmoji != "" {
 		// add some padding space before actual one line subject
-		gitCommitEmoji = gitCommitEmoji + " "
+		gitCommitEmoji += " "
 	}
 
-	scn := bufio.NewScanner(os.Stdin)
 	fmt.Println("📝  Enter your JIRA issue url (or hit enter for none).")
-	issue := pkg.GetSingleLineInput(scn)
+	issue := pkg.GetSingleLineInput(bufio.NewScanner(os.Stdin))
 	if issue == "" {
 		issue = "\"none\""
 	}
 	// TODO: else if not url, then prefix with JIRA issue
 
 	fmt.Println("🤔  Enter your one-line summary:")
-	subject := pkg.GetSingleLineInput(scn)
+	subject := pkg.GetSingleLineInput(bufio.NewScanner(os.Stdin))
 
-	fmt.Println("✍️  Enter/Paste your multiline summary. On any empty line, Ctrl-] and Enter to save it:")
+	fmt.Println("✍️  Enter/Paste your multiline summary. On any empty line, Ctrl-D to save it:")
+	body := pkg.GetMultiLineInput(bufio.NewScanner(os.Stdin))
 
-	body := pkg.GetMultiLineInput(scn)
-
-	fmt.Println("⚗️  Enter/Paste your multiline Test Plan description. On any empty line, Ctrl-] and Enter to save it:")
-	testPlan := pkg.GetMultiLineInput(scn)
+	fmt.Println("⚗️  Enter/Paste your multiline Test Plan. On any empty line, Ctrl-D to save it:")
+	testPlan := pkg.GetMultiLineInput(bufio.NewScanner(os.Stdin))
 
 	commitMessage := fmt.Sprintf("%s%s\n\n%s\n\nIssue: %s\n\nTest plan:\n\n%s\n",
 		gitCommitEmoji,
 		subject,
-		strings.Join(body, "\n"), issue,
-		strings.Join(testPlan, "\n"))
+		body,
+		issue,
+		testPlan)
 
 	pipe := strings.NewReader(commitMessage)
 
